@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Inicio</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <div class="icono-principal">📔</div>
+
+    <h2>Bienvenido a <span>Diario Personal</span></h2>
+
+    <p class="subtitulo">
+        Plataforma para gestionar, organizar y mantener un registro
+        histórico de tus entradas personales.
+    </p>
+
+    <div class="opciones">
+
+        <div class="opcion">
+            <div class="icono">✍️</div>
+            <h3>Entradas</h3>
+            <p>
+                Crea y administra tus registros personales.
+            </p>
+        </div>
+
+        <div class="opcion">
+            <div class="icono">📚</div>
+            <h3>Historial</h3>
+            <p>
+                Consulta y organiza tus entradas a lo largo del tiempo.
+            </p>
+        </div>
+
+        <div class="opcion">
+            <div class="icono">🔐</div>
+            <h3>Privacidad</h3>
+            <p>
+                Gestiona información pública y privada de forma organizada.
+            </p>
+        </div>
+
+    </div>
+
+    <a href="#" class="boton">✨ Gestionar entradas</a>
+
+</div>
+
+{% endblock %}
