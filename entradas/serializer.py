@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import Categoria, Estado, Entrada, HistorialEstado
 
+#convertir los modelos a json para poder ser consumidos por el front-end 
+#Usuario? 
 
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta:

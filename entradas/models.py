@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 
 str_habilitado = "Habilitado"
 str_fecha_creacion = "Fecha Creación"
@@ -86,9 +86,9 @@ class Entrada(models.Model):
     )
 
     usuario = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
-    )
+    settings.AUTH_USER_MODEL,
+    on_delete=models.CASCADE
+)
 
     habilitado = models.BooleanField(
         str_habilitado,
@@ -136,3 +136,6 @@ class HistorialEstado(models.Model):
 
     class Meta:
         db_table_comment = "Historial de cambios de estado de las entradas."
+
+
+
