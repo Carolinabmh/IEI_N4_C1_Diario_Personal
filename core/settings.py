@@ -136,6 +136,10 @@ MAILERS = {
     },
 }
 
+# Configuración de autenticación
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'listado_entradas'
+LOGOUT_REDIRECT_URL = 'inicio'
 
 #.\venv\Scripts\Activate.ps1
 #python -m django --version

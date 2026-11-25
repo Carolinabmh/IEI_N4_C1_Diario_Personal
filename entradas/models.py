@@ -64,7 +64,7 @@ class Estado(models.Model):
 class Entrada(models.Model):
     titulo = models.CharField("Título", max_length=100, null=False)
     contenido = models.TextField("Contenido", null=False)
-
+    
     fecha_creacion = models.DateTimeField(
         str_fecha_creacion,
         auto_now_add=True

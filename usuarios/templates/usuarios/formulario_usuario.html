@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+<title>Diario Personal | Formulario de usuario</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    {% if object %}
+
+        <h2 class="fw-bold mb-4">
+            ✏️ Editar usuario
+        </h2>
+
+        <p class="text-muted">
+            Modifica los datos del usuario seleccionado.
+        </p>
+
+    {% else %}
+
+        <h2 class="fw-bold mb-4">
+            👤 Crear nuevo usuario
+        </h2>
+
+        <p class="text-muted">
+            Completa los datos para registrar un usuario.
+        </p>
+
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% for campo in form %}
+
+            <div class="mb-3">
+
+                {% if campo.name == 'is_active' %}
+
+                    <div class="form-check">
+
+                        {{ campo }}
+
+                        <label class="form-check-label"
+                               for="{{ campo.id_for_label }}">
+                            {{ campo.label }}
+                        </label>
+
+                    </div>
+
+                {% else %}
+
+                    <label class="form-label"
+                           for="{{ campo.id_for_label }}">
+
+                        {{ campo.label }}
+
+                        {% if campo.field.required %}
+                            <span class="text-danger">*</span>
+                        {% endif %}
+
+                    </label>
+
+                    {{ campo }}
+
+                {% endif %}
+
+                {% if campo.help_text %}
+
+                    <div class="form-text">
+                        {{ campo.help_text }}
+                    </div>
+
+                {% endif %}
+
+                {% for error in campo.errors %}
+
+                    <div class="text-danger">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+        <div class="mt-4">
+
+            <button type="submit" class="boton">
+
+                {% if object %}
+                    💾 Guardar cambios
+                {% else %}
+                    ➕ Crear usuario
+                {% endif %}
+
+            </button>
+
+            <a href="{% url 'listado_usuarios' %}"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

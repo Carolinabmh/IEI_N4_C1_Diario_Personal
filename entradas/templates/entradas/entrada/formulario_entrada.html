@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+
+    {% if object %}
+        <title>Diario Personal | Editar entrada</title>
+    {% else %}
+        <title>Diario Personal | Nueva entrada</title>
+    {% endif %}
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    {% if object %}
+
+        <h2 class="fw-bold mb-4">
+            ✏️ Editar entrada
+        </h2>
+
+        <p class="text-muted">
+            Modifica la información de tu entrada personal.
+        </p>
+
+    {% else %}
+
+        <h2 class="fw-bold mb-4">
+            📝 Nueva entrada
+        </h2>
+
+        <p class="text-muted">
+            Completa el formulario para registrar una nueva entrada.
+        </p>
+
+    {% endif %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+
+            <label for="{{ form.titulo.id_for_label }}"
+                   class="form-label">
+                Título
+            </label>
+
+            {{ form.titulo }}
+            {{ form.titulo.errors }}
+
+        </div>
+
+        <div class="mb-3">
+
+            <label for="{{ form.contenido.id_for_label }}"
+                   class="form-label">
+                Contenido
+            </label>
+
+            {{ form.contenido }}
+            {{ form.contenido.errors }}
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+
+                <label for="{{ form.categoria.id_for_label }}"
+                       class="form-label">
+                    Categoría
+                </label>
+
+                {{ form.categoria }}
+                {{ form.categoria.errors }}
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label for="{{ form.estado.id_for_label }}"
+                       class="form-label">
+                    Estado
+                </label>
+
+                {{ form.estado }}
+                {{ form.estado.errors }}
+
+            </div>
+
+        </div>
+
+        <div class="form-check mb-3">
+
+            {{ form.es_publica }}
+
+            <label for="{{ form.es_publica.id_for_label }}"
+                   class="form-check-label">
+                Marcar como pública
+            </label>
+
+            {{ form.es_publica.errors }}
+
+            <div class="form-text">
+                Esta opción todavía no comparte la entrada
+                con otros usuarios.
+            </div>
+
+        </div>
+
+        <div class="form-check mb-4">
+
+            {{ form.habilitado }}
+
+            <label for="{{ form.habilitado.id_for_label }}"
+                   class="form-check-label">
+                Entrada habilitada
+            </label>
+
+            {{ form.habilitado.errors }}
+
+        </div>
+
+        <hr>
+
+        <div class="d-flex gap-3 align-items-center flex-wrap">
+
+            <button type="submit" class="boton">
+
+                {% if object %}
+                    Guardar cambios
+                {% else %}
+                    Crear entrada
+                {% endif %}
+
+            </button>
+
+            <a href="{% url 'listado_entradas' %}"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Eliminar historial</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <h2 class="fw-bold mb-4">
+        🗑️ Eliminar registro del historial
+    </h2>
+
+    <div class="alert alert-danger">
+
+        <h4>Confirmar eliminación</h4>
+
+        <p>
+            ¿Estás seguro de que deseas eliminar este registro del historial?
+        </p>
+
+        <p>
+            Solo se eliminará el registro del historial,
+            no la entrada asociada.
+        </p>
+
+        <p class="mb-0">
+            Esta acción no se puede deshacer.
+        </p>
+
+    </div>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <h4 class="mb-0">
+                {{ object.entrada.titulo }}
+            </h4>
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>ID:</strong>
+                {{ object.id }}
+            </p>
+
+            <p>
+                <strong>Entrada asociada:</strong>
+                {{ object.entrada.titulo }}
+            </p>
+
+            <p>
+                <strong>Estado anterior:</strong>
+                {{ object.estado_anterior }}
+            </p>
+
+            <p>
+                <strong>Estado nuevo:</strong>
+                {{ object.estado_nuevo }}
+            </p>
+
+            <p>
+                <strong>Fecha del cambio:</strong>
+                {{ object.fecha_cambio|date:"d/m/Y H:i" }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <button type="submit" class="btn btn-danger">
+            Confirmar eliminación
+        </button>
+
+        <a href="{% url 'listado_historial' %}"
+           class="btn btn-secondary">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

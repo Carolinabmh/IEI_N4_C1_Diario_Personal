@@ -1,0 +1,88 @@
+
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Detalle de estado</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <h2 class="fw-bold mb-4">
+        📋 Detalle de estado
+    </h2>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <h3 class="fw-bold">
+                {{ estado.nombre }}
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>ID:</strong>
+                {{ estado.id }}
+            </p>
+
+            <p>
+                <strong>Descripción:</strong>
+                {{ estado.descripcion|default:"Sin descripción" }}
+            </p>
+
+            <p>
+                <strong>Fecha de creación:</strong>
+                {{ estado.created_at|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Última modificación:</strong>
+                {{ estado.updated_at|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Habilitado:</strong>
+
+                {% if estado.habilitado %}
+                    <span class="badge bg-success">Sí</span>
+                {% else %}
+                    <span class="badge bg-secondary">No</span>
+                {% endif %}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+
+        <a href="{% url 'listado_estados' %}"
+           class="btn btn-secondary">
+            Volver al listado
+        </a>
+
+        {% if user.is_staff %}
+
+            <a href="{% url 'editar_estado' estado.pk %}"
+               class="btn btn-warning">
+                Editar estado
+            </a>
+
+            <a href="{% url 'eliminar_estado' estado.pk %}"
+               class="btn btn-danger">
+                Eliminar estado
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

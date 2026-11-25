@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Detalle de categoría</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <h2 class="fw-bold mb-4">
+        📚 Detalle de categoría
+    </h2>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <h3 class="fw-bold">
+                {{ categoria.nombre }}
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>ID:</strong>
+                {{ categoria.id }}
+            </p>
+
+            <p>
+                <strong>Descripción:</strong>
+                {{ categoria.descripcion|default:"Sin descripción" }}
+            </p>
+
+            <p>
+                <strong>Fecha de creación:</strong>
+                {{ categoria.created_at|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Última modificación:</strong>
+                {{ categoria.updated_at|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Habilitado:</strong>
+
+                {% if categoria.habilitado %}
+                    <span class="badge bg-success">Sí</span>
+                {% else %}
+                    <span class="badge bg-secondary">No</span>
+                {% endif %}
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+
+        <a href="{% url 'listado_categorias' %}"
+           class="btn btn-secondary">
+            Volver al listado
+        </a>
+
+        {% if user.is_staff %}
+
+            <a href="{% url 'editar_categoria' categoria.pk %}"
+               class="btn btn-warning">
+                Editar categoría
+            </a>
+
+            <a href="{% url 'eliminar_categoria' categoria.pk %}"
+               class="btn btn-danger">
+                Eliminar categoría
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

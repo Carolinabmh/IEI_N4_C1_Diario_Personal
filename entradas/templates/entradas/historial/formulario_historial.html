@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+
+    {% if object %}
+        <title>Diario Personal | Editar historial</title>
+    {% else %}
+        <title>Diario Personal | Nuevo historial</title>
+    {% endif %}
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    {% if object %}
+
+        <h2 class="fw-bold mb-4">
+            ✏️ Editar registro del historial
+        </h2>
+
+        <p class="text-muted">
+            Modifica la información del registro.
+        </p>
+
+    {% else %}
+
+        <h2 class="fw-bold mb-4">
+            📚 Nuevo registro del historial
+        </h2>
+
+        <p class="text-muted">
+            Completa el formulario para registrar un cambio de estado.
+        </p>
+
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+
+        {% endif %}
+
+        <div class="mb-3">
+
+            <label for="{{ form.entrada.id_for_label }}"
+                   class="form-label">
+                Entrada asociada
+            </label>
+
+            {{ form.entrada }}
+
+            <div class="text-danger">
+                {{ form.entrada.errors }}
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6 mb-3">
+
+                <label for="{{ form.estado_anterior.id_for_label }}"
+                       class="form-label">
+                    Estado anterior
+                </label>
+
+                {{ form.estado_anterior }}
+
+                <div class="text-danger">
+                    {{ form.estado_anterior.errors }}
+                </div>
+
+            </div>
+
+            <div class="col-md-6 mb-3">
+
+                <label for="{{ form.estado_nuevo.id_for_label }}"
+                       class="form-label">
+                    Estado nuevo
+                </label>
+
+                {{ form.estado_nuevo }}
+
+                <div class="text-danger">
+                    {{ form.estado_nuevo.errors }}
+                </div>
+
+            </div>
+
+        </div>
+
+        <hr>
+
+        {% if object %}
+
+            <button type="submit" class="boton">
+                Guardar cambios
+            </button>
+
+        {% else %}
+
+            <button type="submit" class="boton">
+                Crear registro
+            </button>
+
+        {% endif %}
+
+        <a href="{% url 'listado_historial' %}"
+           class="btn btn-secondary ms-2">
+            Cancelar
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,51 +1,108 @@
 {% extends 'base.html' %}
 
 {% block titulo %}
-    <title>Diario Personal | Inicio</title>
+<title>Diario Personal | Inicio</title>
 {% endblock %}
 
 {% block contenido %}
 
-<div class="contenedor">
+<div class="contenedor text-center">
 
     <div class="icono-principal">📔</div>
 
-    <h2>Bienvenido a <span>Diario Personal</span></h2>
+    <h2 class="fw-bold">
+        Bienvenido a <span>Diario Personal</span>
+    </h2>
 
     <p class="subtitulo">
-        Plataforma para gestionar, organizar y mantener un registro
-        histórico de tus entradas personales.
+        Plataforma para gestionar, organizar y mantener
+        un registro histórico de tus entradas personales.
     </p>
 
     <div class="opciones">
 
         <div class="opcion">
+
             <div class="icono">✍️</div>
-            <h3>Entradas</h3>
-            <p>
-                Crea y administra tus registros personales.
-            </p>
+
+            <h3 class="fw-bold">Entradas</h3>
+
+            <p>Crea y administra tus registros personales.</p>
+
         </div>
 
         <div class="opcion">
+
             <div class="icono">📚</div>
-            <h3>Historial</h3>
+
+            <h3 class="fw-bold">Historial</h3>
+
             <p>
-                Consulta y organiza tus entradas a lo largo del tiempo.
+                Consulta y organiza tus entradas
+                a lo largo del tiempo.
             </p>
+
         </div>
 
         <div class="opcion">
+
             <div class="icono">🔐</div>
-            <h3>Privacidad</h3>
+
+            <h3 class="fw-bold">Privacidad</h3>
+
             <p>
-                Gestiona información pública y privada de forma organizada.
+                Mantén tus registros personales protegidos
+                mediante el acceso de usuarios.
             </p>
+
         </div>
 
     </div>
 
-    <a href="#" class="boton">✨ Gestionar entradas</a>
+    {% if user.is_authenticated %}
+
+        <p class="mb-3">
+
+            Hola, <strong>{{ user.username }}</strong>.
+            Bienvenido a tu espacio personal.
+
+        </p>
+
+        <a href="{% url 'listado_entradas' %}"
+           class="boton">
+
+            ✨ Gestionar entradas
+
+        </a>
+
+    {% else %}
+
+        <div class="d-flex justify-content-center flex-wrap gap-3">
+
+            <a href="{% url 'login' %}"
+               class="boton">
+
+                🔐 Iniciar sesión
+
+            </a>
+
+            <a href="{% url 'registro' %}"
+               class="boton">
+
+                👤 Crear cuenta
+
+            </a>
+
+        </div>
+
+        <p class="text-muted mt-3">
+
+            Inicia sesión o regístrate para acceder
+            a tu diario personal.
+
+        </p>
+
+    {% endif %}
 
 </div>
 

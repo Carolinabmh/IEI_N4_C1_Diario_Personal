@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+<title>Diario Personal | Iniciar sesión</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor" style="max-width: 550px;">
+
+    <div class="text-center mb-4">
+
+        <div class="icono-principal">🔐</div>
+
+        <h2 class="fw-bold">Iniciar sesión</h2>
+
+        <p class="text-muted">
+            Ingresa a tu espacio personal.
+        </p>
+
+    </div>
+
+    {% if form.errors %}
+
+        <div class="alert alert-danger">
+            Nombre de usuario o contraseña incorrectos.
+        </div>
+
+    {% endif %}
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="mb-3">
+
+            <label for="id_username" class="form-label">
+                Nombre de usuario
+            </label>
+
+            <input type="text"
+                   name="username"
+                   id="id_username"
+                   class="form-control"
+                   placeholder="Ingresa tu usuario"
+                   autocomplete="username"
+                   required
+                   autofocus>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label for="id_password" class="form-label">
+                Contraseña
+            </label>
+
+            <input type="password"
+                   name="password"
+                   id="id_password"
+                   class="form-control"
+                   placeholder="Ingresa tu contraseña"
+                   autocomplete="current-password"
+                   required>
+
+        </div>
+
+        <input type="hidden" name="next" value="{{ next }}">
+
+        <div class="d-grid">
+
+            <button type="submit" class="boton">
+                Iniciar sesión
+            </button>
+
+        </div>
+
+    </form>
+
+    <hr>
+
+    <div class="text-center">
+
+        <p>¿Todavía no tienes una cuenta?</p>
+
+        <a href="{% url 'registro' %}"
+           class="btn btn-outline-primary">
+            Crear cuenta
+        </a>
+
+        <div class="mt-3">
+
+            <a href="{% url 'inicio' %}"
+               class="btn btn-secondary">
+                Volver al inicio
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

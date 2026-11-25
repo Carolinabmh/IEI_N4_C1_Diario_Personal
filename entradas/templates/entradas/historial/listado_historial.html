@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Historial</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <h2 class="fw-bold">
+            📚 Historial de estados
+        </h2>
+
+        <a href="{% url 'crear_historial' %}" class="boton">
+            + Nuevo registro
+        </a>
+
+    </div>
+
+    <p class="text-muted mb-4">
+        Consulta y administra los cambios de estado de tus entradas personales.
+    </p>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover table-bordered">
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Entrada</th>
+                    <th>Estado anterior</th>
+                    <th>Estado nuevo</th>
+                    <th>Fecha del cambio</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for historial in historiales %}
+
+                <tr>
+
+                    <td>{{ historial.id }}</td>
+
+                    <td>{{ historial.entrada.titulo }}</td>
+
+                    <td>
+                        <span class="badge bg-secondary">
+                            {{ historial.estado_anterior }}
+                        </span>
+                    </td>
+
+                    <td>
+                        <span class="badge bg-success">
+                            {{ historial.estado_nuevo }}
+                        </span>
+                    </td>
+
+                    <td>
+                        {{ historial.fecha_cambio|date:"d/m/Y H:i" }}
+                    </td>
+
+                    <td>
+
+                        <a href="{% url 'detalle_historial' historial.pk %}"
+                           class="btn btn-info btn-sm">
+                            Ver
+                        </a>
+
+                        <a href="{% url 'editar_historial' historial.pk %}"
+                           class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+
+                        <a href="{% url 'eliminar_historial' historial.pk %}"
+                           class="btn btn-danger btn-sm">
+                            Eliminar
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+                    <td colspan="6" class="text-center">
+                        No existen registros en el historial.
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <a href="{% url 'inicio' %}" class="btn btn-secondary">
+        Volver al inicio
+    </a>
+
+</div>
+
+{% endblock %}

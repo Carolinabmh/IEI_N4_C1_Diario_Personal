@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+<title>Diario Personal | Detalle de usuario</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <h2 class="fw-bold mb-4">👤 Detalle de usuario</h2>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h4 class="mb-0">{{ usuario.username }}</h4>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>ID:</strong>
+                {{ usuario.id }}
+            </p>
+
+            <p>
+                <strong>Nombre de usuario:</strong>
+                {{ usuario.username }}
+            </p>
+
+            <p>
+                <strong>Nombre:</strong>
+                {{ usuario.first_name|default:"No registrado" }}
+            </p>
+
+            <p>
+                <strong>Apellido:</strong>
+                {{ usuario.last_name|default:"No registrado" }}
+            </p>
+
+            <p>
+                <strong>Correo electrónico:</strong>
+                {{ usuario.email|default:"No registrado" }}
+            </p>
+
+            <p>
+                <strong>Teléfono:</strong>
+                {{ usuario.telefono|default:"No registrado" }}
+            </p>
+
+            <p>
+                <strong>Fecha de nacimiento:</strong>
+                {{ usuario.fecha_nacimiento|date:"d/m/Y"|default:"No registrada" }}
+            </p>
+
+            <p>
+                <strong>Biografía:</strong>
+                {{ usuario.biografia|default:"Sin biografía" }}
+            </p>
+
+            <p>
+                <strong>Rol:</strong>
+
+                {% if usuario.is_staff %}
+                    <span class="badge bg-primary">
+                        Administrador
+                    </span>
+                {% else %}
+                    <span class="badge bg-secondary">
+                        Usuario
+                    </span>
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+
+                {% if usuario.is_active %}
+                    <span class="badge bg-success">
+                        Activo
+                    </span>
+                {% else %}
+                    <span class="badge bg-danger">
+                        Inactivo
+                    </span>
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Fecha de registro:</strong>
+                {{ usuario.date_joined|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Último inicio de sesión:</strong>
+                {{ usuario.last_login|date:"d/m/Y H:i"|default:"Sin registro" }}
+            </p>
+
+        </div>
+
+    </div>
+
+    {% if not usuario.is_superuser %}
+
+    <a href="{% url 'editar_usuario' usuario.id %}"
+       class="btn btn-warning">
+        Editar
+    </a>
+
+    {% endif %}
+
+    {% if not usuario.is_staff and not usuario.is_superuser %}
+
+    <a href="{% url 'eliminar_usuario' usuario.id %}"
+       class="btn btn-danger">
+        Eliminar
+    </a>
+
+    {% endif %}
+
+    <a href="{% url 'listado_usuarios' %}"
+       class="btn btn-secondary">
+        Volver al listado
+    </a>
+
+</div>
+
+{% endblock %}

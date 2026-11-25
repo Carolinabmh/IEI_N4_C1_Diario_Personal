@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+
+    {% if object %}
+        <title>Diario Personal | Editar categoría</title>
+    {% else %}
+        <title>Diario Personal | Nueva categoría</title>
+    {% endif %}
+
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    {% if object %}
+
+        <h2 class="fw-bold mb-4">
+            ✏️ Editar categoría
+        </h2>
+
+        <p class="text-muted">
+            Modifica la información de la categoría.
+        </p>
+
+    {% else %}
+
+        <h2 class="fw-bold mb-4">
+            📚 Nueva categoría
+        </h2>
+
+        <p class="text-muted">
+            Completa el formulario para registrar una nueva categoría.
+        </p>
+
+    {% endif %}
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        {{ form.non_field_errors }}
+
+        <div class="mb-3">
+
+            <label for="{{ form.nombre.id_for_label }}"
+                   class="form-label">
+                Nombre
+            </label>
+
+            {{ form.nombre }}
+            {{ form.nombre.errors }}
+
+        </div>
+
+        <div class="mb-3">
+
+            <label for="{{ form.descripcion.id_for_label }}"
+                   class="form-label">
+                Descripción
+            </label>
+
+            {{ form.descripcion }}
+            {{ form.descripcion.errors }}
+
+        </div>
+
+        <div class="form-check mb-4">
+
+            {{ form.habilitado }}
+
+            <label for="{{ form.habilitado.id_for_label }}"
+                   class="form-check-label">
+                Categoría habilitada
+            </label>
+
+            {{ form.habilitado.errors }}
+
+        </div>
+
+        <hr>
+
+        <div class="d-flex gap-3 align-items-center flex-wrap">
+
+            <button type="submit" class="boton">
+
+                {% if object %}
+                    Guardar cambios
+                {% else %}
+                    Crear categoría
+                {% endif %}
+
+            </button>
+
+            <a href="{% url 'listado_categorias' %}"
+               class="btn btn-secondary">
+                Cancelar
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

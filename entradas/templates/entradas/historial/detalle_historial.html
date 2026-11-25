@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Detalle de historial</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <h2 class="fw-bold mb-4">
+        📚 Detalle del historial
+    </h2>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            <h3 class="fw-bold mb-0">
+                {{ historial.entrada.titulo }}
+            </h3>
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>ID:</strong>
+                {{ historial.id }}
+            </p>
+
+            <p>
+                <strong>Entrada asociada:</strong>
+                {{ historial.entrada.titulo }}
+            </p>
+
+            <p>
+                <strong>Usuario:</strong>
+                {{ historial.entrada.usuario.username }}
+            </p>
+
+            <p>
+                <strong>Estado anterior:</strong>
+
+                <span class="badge bg-secondary">
+                    {{ historial.estado_anterior }}
+                </span>
+            </p>
+
+            <p>
+                <strong>Estado nuevo:</strong>
+
+                <span class="badge bg-success">
+                    {{ historial.estado_nuevo }}
+                </span>
+            </p>
+
+            <p>
+                <strong>Fecha del cambio:</strong>
+                {{ historial.fecha_cambio|date:"d/m/Y H:i" }}
+            </p>
+
+        </div>
+
+    </div>
+
+    <a href="{% url 'listado_historial' %}"
+       class="btn btn-secondary">
+        Volver al listado
+    </a>
+
+    <a href="{% url 'editar_historial' historial.pk %}"
+       class="btn btn-warning">
+        Editar registro
+    </a>
+
+    <a href="{% url 'eliminar_historial' historial.pk %}"
+       class="btn btn-danger">
+        Eliminar registro
+    </a>
+
+</div>
+
+{% endblock %}

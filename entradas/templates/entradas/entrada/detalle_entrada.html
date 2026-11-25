@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block titulo %}
+    <title>Diario Personal | Detalle de entrada</title>
+{% endblock %}
+
+{% block contenido %}
+
+<div class="contenedor">
+
+    <h2 class="fw-bold mb-4">
+        📔 Detalle de entrada
+    </h2>
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+
+            <h3 class="fw-bold">
+                {{ entrada.titulo }}
+            </h3>
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>ID:</strong>
+                {{ entrada.id }}
+            </p>
+
+            <p>
+                <strong>Usuario:</strong>
+                {{ entrada.usuario.username }}
+            </p>
+
+            <p>
+                <strong>Categoría:</strong>
+                {{ entrada.categoria }}
+            </p>
+
+            <p>
+                <strong>Estado:</strong>
+                {{ entrada.estado }}
+            </p>
+
+            <p>
+                <strong>Fecha de creación:</strong>
+                {{ entrada.fecha_creacion|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Última modificación:</strong>
+                {{ entrada.updated_at|date:"d/m/Y H:i" }}
+            </p>
+
+            <p>
+                <strong>Marcada como pública:</strong>
+
+                {% if entrada.es_publica %}
+                    <span class="badge bg-info">Sí</span>
+                {% else %}
+                    <span class="badge bg-secondary">No</span>
+                {% endif %}
+
+            </p>
+
+            <p>
+                <strong>Habilitado:</strong>
+
+                {% if entrada.habilitado %}
+                    <span class="badge bg-success">Sí</span>
+                {% else %}
+                    <span class="badge bg-secondary">No</span>
+                {% endif %}
+
+            </p>
+
+            <hr>
+
+            <h4 class="fw-bold mb-3">
+                Contenido
+            </h4>
+
+            <div class="p-3 bg-light rounded">
+                {{ entrada.contenido|linebreaks }}
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap">
+
+        <a href="{% url 'listado_entradas' %}"
+           class="btn btn-secondary">
+            Volver al listado
+        </a>
+
+        <a href="{% url 'editar_entrada' entrada.pk %}"
+           class="btn btn-warning">
+            Editar entrada
+        </a>
+
+        <a href="{% url 'eliminar_entrada' entrada.pk %}"
+           class="btn btn-danger">
+            Eliminar entrada
+        </a>
+
+    </div>
+
+</div>
+
+{% endblock %}
